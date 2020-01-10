@@ -14,6 +14,7 @@ import com.parse.ParseException;
 import com.parse.ParseInstallation;
 import com.parse.ParseObject;
 import com.parse.SaveCallback;
+import com.shashank.sony.fancytoastlib.FancyToast;
 
 
 public class SignUp extends AppCompatActivity implements View.OnClickListener {
@@ -37,40 +38,32 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
         btnSubmit.setOnClickListener(SignUp.this);
     }
 
-   // public void helloWorldTapped(View view){
-        /*ParseObject boxer = new ParseObject("Boxer");
-        boxer.put("punch_speed", 200);
-        boxer.saveInBackground(new SaveCallback() {
-            @Override
-            public void done(ParseException e) {
-                if (e == null) {
-                    Toast.makeText(SignUp.this, "boxer object is saved successfully", Toast.LENGTH_LONG).show();
-                }
-
-            }
-        });*/
-
 
     @Override
     public void onClick(View v) {
 
-        final ParseObject kickBoxer = new ParseObject("KickBoxer");
-        kickBoxer.put("name", edtName.getText().toString());
-        kickBoxer.put("punchSpeed", Integer.parseInt(edtPunchSpeed.
-                getText().toString()));
-        kickBoxer.put("punchPower", Integer.parseInt(edtPunchPower.getText().toString()));
-        kickBoxer.put("kickSpeed", Integer.parseInt(edtKickSpeed.getText().toString()));
-        kickBoxer.put("kickPower", Integer.parseInt(edtKickPower.getText().toString()));
-        kickBoxer.saveInBackground(new SaveCallback() {
-            @Override
-            public void done(ParseException e) {
-                if (e == null){
-                Toast.makeText(SignUp.this, kickBoxer.get("name") + " is saved to server", Toast.LENGTH_SHORT).show();
+        try {
+
+            final ParseObject kickBoxer = new ParseObject("KickBoxer");
+            kickBoxer.put("name", edtName.getText().toString());
+            kickBoxer.put("punchSpeed", Integer.parseInt(edtPunchSpeed.
+                    getText().toString()));
+            kickBoxer.put("punchPower", Integer.parseInt(edtPunchPower.getText().toString()));
+            kickBoxer.put("kickSpeed", Integer.parseInt(edtKickSpeed.getText().toString()));
+            kickBoxer.put("kickPower", Integer.parseInt(edtKickPower.getText().toString()));
+            kickBoxer.saveInBackground(new SaveCallback() {
+                @Override
+                public void done(ParseException e) {
+                    if (e == null) {
+                        FancyToast.makeText(SignUp.this, kickBoxer.get("name") + " was saved successfully!", FancyToast.LENGTH_LONG, FancyToast.SUCCESS, false).show();
+                    } else
+                        {
+                        }
                 }
-                else {
-                    Toast.makeText(SignUp.this, e.getMessage(), Toast.LENGTH_LONG).show();
-                }
-            }
-        });
+            });
+        }
+        catch (Exception e) {
+            FancyToast.makeText(SignUp.this, e.getMessage(), FancyToast.LENGTH_LONG, FancyToast.ERROR, false).show();
+        }
     }
 }
