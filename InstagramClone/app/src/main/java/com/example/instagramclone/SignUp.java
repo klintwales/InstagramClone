@@ -25,7 +25,7 @@ import java.util.List;
 
 
 public class SignUp extends AppCompatActivity implements View.OnClickListener {
-    public Button btnSubmit, btnGetAllData;
+    public Button btnSubmit, btnGetAllData, btnNextActivity;
     private EditText edtName, edtPunchSpeed, edtPunchPower, edtKickSpeed, edtKickPower;
     private TextView txtGetData;
 
@@ -51,6 +51,8 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
 
         btnGetAllData = findViewById(R.id.btnGetAllData);
 
+        btnNextActivity = findViewById(R.id.btnNextActivity);
+
 
         txtGetData.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,6 +77,9 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
                 allKickBoxers = "";
 
                 ParseQuery<ParseObject> queryAll = ParseQuery.getQuery("KickBoxer");
+
+                queryAll.whereGreaterThan("punchPower", 100 );
+
                 queryAll.findInBackground(new FindCallback<ParseObject>() {
                     @Override
                     public void done(List<ParseObject> objects, ParseException e) {
